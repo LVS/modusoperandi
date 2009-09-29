@@ -5,8 +5,8 @@ require 'fileutils'
 
 def usage
   puts "mo [options] <project> <context> [<version>]"
-  puts "\nOptions"
-  puts "   -quiet         Supress normal output"
+  puts "\noptions"
+  puts "   -quiet         Suppress normal output"
   exit 1
 end
 
