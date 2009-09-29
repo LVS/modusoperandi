@@ -15,25 +15,25 @@ def quiet_puts(string = "")
 end
 
 def check_project
-  File.makedirs File.join(ENV['HOME'], '.MO')
+  File.makedirs File.join(ENV['HOME'], '.modusoperandi')
   
-  @src_dir = File.join(ENV['HOME'], '.MO', @project)
+  @src_dir = File.join(ENV['HOME'], '.modusoperandi', @project)
   
   if !(File.directory?(File.join(@src_dir, '.git')))
-    if !File.exists?('.MO')
+    if !File.exists?('.modusoperandi')
       print "\nPlease enter a valid git repository URL (e.g. git@217.33.244.230:lvscm_example.git): "
       url = $stdin.gets.chomp
       `git clone #{url} #{@src_dir}`
     end
   end
   
-  File.makedirs File.join(@src_dir, 'MO')
+  File.makedirs File.join(@src_dir, 'ModusOperandi')
   
 end
 
 
 def dest_dir
-  filename = File.join(@src_dir, 'MO', 'target.dat')
+  filename = File.join(@src_dir, 'ModusOperandi', 'target.dat')
   if File.file? filename
     @dest_dir = File.read(filename).chomp
   else
@@ -53,7 +53,7 @@ end
 
 def check_context(exit_on_fail = false)
   ok = false
-  filename = File.join(@src_dir, 'MO', 'contexts.dat')
+  filename = File.join(@src_dir, 'ModusOperandi', 'contexts.dat')
   unless File.file? filename
     puts "WARNING: #{filename} does not exist.  Context validation skipped."
     return true
@@ -194,7 +194,7 @@ usage() unless ARGS.size > 1
 @context = ARGS[1]
 @version = ARGS[2] # If no tag is set, we will always continue with the current git branch
 
-check_project() # Will check the project exists in $HOME/.MO and then set @src_dir
+check_project() # Will check the project exists in $HOME/.modusoperandi and then set @src_dir
 
 dest_dir()
 
@@ -210,7 +210,7 @@ Dir.chdir(@src_dir)
 File.makedirs @dest_dir
 
 Dir["**/*"].each do |file|
-  if file !~ /^MO/
+  if file !~ /^ModusOperandi/
     dest = File.join(@dest_dir, file)
     if File.directory?(file)
       File.makedirs(dest)
